@@ -1,284 +1,1356 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-	<title>Simeone Marques</title>
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMEONE_MARQUES • PORTFÓLIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323:400&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@400;700;900&display=swap");
+
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff0080;
+            --neon-yellow: #ffff00;
+            --neon-green: #00ff41;
+            --neon-orange: #ffa900;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --grid-color: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: #ffffff;
+            font-family: "VT323", monospace;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Matrix Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -2;
+            animation: matrix-scroll 20s linear infinite;
+        }
+
+        @keyframes matrix-scroll {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(20px); }
+        }
+
+        /* Scan Lines */
+        .scan-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%, 
+                rgba(0, 255, 0, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            z-index: -1;
+            pointer-events: none;
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-cyan);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: var(--neon-pink);
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: var(--neon-cyan);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, -1px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, 1px);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .glitch-title {
+            font-size: 4rem;
+            font-weight: 900;
+            font-family: "Orbitron", monospace;
+            margin-bottom: 2rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .cyber-text {
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Loading Bar */
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.2);
+            margin: 2rem 0;
+            border: 1px solid var(--neon-cyan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            animation: loading 3s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0%, 100% { width: 0%; }
+            50% { width: 100%; }
+        }
+
+        /* Buttons */
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            position: absolute;
+        }
+
+        [class*="btn-glitch-"] {
+            display: inline-block;
+            font-family: "VT323", monospace;
+            border: 1px solid white;
+            color: white;
+            padding: 15px 20px;
+            min-width: 200px;
+            line-height: 1.5em;
+            white-space: nowrap;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glitch-fill .text,
+        .btn-glitch-fill .decoration,
+        .btn-glitch-outline .text,
+        .btn-glitch-outline .decoration {
+            display: inline-block;
+        }
+
+        .btn-glitch-fill .decoration,
+        .btn-glitch-outline .decoration {
+            float: right;
+        }
+
+        .btn-glitch-outline {
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+
+        .btn-glitch-fill:hover,
+        .btn-glitch-fill:focus {
+            animation: glitch-btn 0.2s;
+            background-color: var(--neon-yellow);
+            color: black;
+            border: 1px solid var(--neon-yellow);
+        }
+
+        .btn-glitch-outline:hover {
+            background-color: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .btn-glitch-fill:hover .text-decoration,
+        .btn-glitch-fill:hover .decoration {
+            animation: blink 0.1s infinite;
+        }
+
+        .btn-glitch-fill:hover::before {
+            content: " ";
+            width: 15px;
+            border: 1px solid black;
+            position: absolute;
+            right: 25%;
+            bottom: 3px;
+            transform: rotate(35deg);
+        }
+
+        .btn-glitch-fill:hover::after {
+            animation: shrink 0.5s forwards;
+            content: " ";
+            width: 75%;
+            border: 1px solid black;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+        }
+
+        .btn-glitch-fill:active {
+            background: none;
+            color: var(--neon-yellow);
+        }
+
+        .btn-glitch-fill:active .text-decoration,
+        .btn-glitch-fill:active .decoration {
+            animation: none;
+        }
+
+        .btn-glitch-fill:active::before,
+        .btn-glitch-fill:active::after {
+            display: none;
+        }
+
+        @keyframes glitch-btn {
+            25% {
+                background-color: red;
+                transform: translateX(-10px);
+                letter-spacing: 10px;
+            }
+            35% {
+                background-color: green;
+                transform: translateX(10px);
+            }
+            59% {
+                opacity: 0;
+            }
+            60% {
+                background-color: blue;
+                transform: translateX(-10px);
+                filter: blur(5px);
+            }
+            100% {
+                background-color: var(--neon-yellow);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        @keyframes shrink {
+            100% { width: 10%; }
+        }
+
+        /* Hologram */
+        .hologram-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .hologram-circle {
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 10s linear infinite;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hologram-circle::before,
+        .hologram-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--neon-pink);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            animation: rotate 8s linear infinite reverse;
+        }
+
+        .hologram-circle::after {
+            border-color: var(--neon-green);
+            animation-duration: 12s;
+        }
+
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .data-stream {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .stream-line {
+            position: absolute;
+            width: 2px;
+            height: 200px;
+            background: linear-gradient(transparent, var(--neon-cyan), transparent);
+            animation: stream 2s linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        .stream-line:nth-child(2) {
+            transform: rotate(90deg);
+            background: linear-gradient(transparent, var(--neon-pink), transparent);
+        }
+
+        .stream-line:nth-child(3) {
+            transform: rotate(45deg);
+            background: linear-gradient(transparent, var(--neon-green), transparent);
+        }
+
+        .stream-line:nth-child(4) {
+            transform: rotate(135deg);
+            background: linear-gradient(transparent, var(--neon-yellow), transparent);
+        }
+
+        @keyframes stream {
+            0% { opacity: 0; transform: translateY(-100px) rotate(var(--rotation, 0deg)); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(100px) rotate(var(--rotation, 0deg)); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-family: "Orbitron", monospace;
+            color: var(--neon-cyan);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cyber-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            padding: 2rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .card-header h3 {
+            font-family: "Orbitron", monospace;
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+        }
+
+        .cyber-card p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #cccccc;
+        }
+
+        .bio-section{
+            margin-top: 30px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            position: relative;
+            height: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: var(--width);
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            animation: progress-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes progress-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--neon-cyan); }
+            50% { box-shadow: 0 0 20px var(--neon-cyan); }
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* Tech Section */
+        .tech-section {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(10, 10, 10, 0.9));
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid var(--neon-green);
+            background: rgba(0, 255, 65, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: tech-scan 3s linear infinite;
+        }
+
+        @keyframes tech-scan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .tech-item h4 {
+            font-family: "Orbitron", monospace;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .tech-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .counter {
+            animation: counter 2s ease-in-out infinite;
+        }
+
+        @keyframes counter {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #000;
+            border: 2px solid var(--neon-green);
+            font-family: "VT323", monospace;
+            font-size: 1.2rem;
+            margin: 3rem 0;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .terminal-header {
+            background: var(--neon-green);
+            color: black;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-buttons span {
+            width: 20px;
+            height: 20px;
+            background: black;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .terminal-body {
+            padding: 1rem;
+            color: var(--neon-green);
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt {
+            color: var(--neon-cyan);
+        }
+
+        .typing-text {
+            animation: typing 3s steps(20) infinite;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        .terminal-output p {
+            margin: 0.5rem 0;
+        }
+
+        /*.terminal-output p:nth-child(5) {
+            color: var(--neon-pink);
+        }*/
+
+        .terminal-output p:nth-child(1) {
+            color: var(--neon-orange);
+        }
+
+        .terminal-output p:nth-child(6) {
+            color: var(--neon-pink);
+        }
+
+        .cursor {
+            animation: cursor-blink 1s infinite;
+        }
+
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            padding: 2rem;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .contact-label {
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .contact-value {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-block;
+            width: 72px;
+            height: 40px;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid var(--neon-cyan);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .glitch-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hologram-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .hologram-circle {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Additional Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-visual {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Particle Effect */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, var(--neon-cyan), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--neon-pink), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--neon-yellow), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--neon-green), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--neon-cyan), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: particles 20s linear infinite;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        @keyframes particles {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <div class="matrix-bg"></div>
+    <div class="scan-lines"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div class="logo glitch" data-text="SIMEONE_MARQUES">SIMEONE_MARQUES</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">// HOME</a></li>
+                <li><a href="#about" class="nav-link">// SOBRE</a></li>
+                <li><a href="#skills" class="nav-link">// HABILIDADES</a></li>
+                <li><a href="#projects" class="nav-link">// PROJETOS</a></li>
+                <li><a href="#contact" class="nav-link">// CONTATO</a></li>
+            </ul>
+        </div>
+    </nav>
 
-	<canvas id="canvas" width="1400" height="600"></canvas>
-  		<style type="text/css">
-  			body {
-  				background-color: #000;    
-  				margin: 0;
-  				overflow: hidden;
-  				background-repeat: no-repeat;
-			}
-  		</style>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="glitch-title" data-text="FULL-STACK DEVELOPER">FULL-STACK DEVELOPER</h1>
+                <p class="cyber-text">_ // Especialista em tecnologias High-Tech...</p>
+                <p class="cyber-text">_ // Procurando soluções inovadoras e disruptivas...</p>
+                <p class="cyber-text">_ // Independente da arquitetura do sistema ou da estrutura do código: A criatividade é o segredo para se resolver qualquer problema!</p>
+                <!-- <p class="cyber-text">_ // Se você souber o que quer, todos os problemas podem ser revolvidos. Criatividade é o segredo!</p> -->
+                <div class="loading-bar">
+                    <div class="loading-fill"></div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn-glitch-fill">
+                        <span class="text">// Ver Projetos</span>
+                        <span class="text-decoration">_</span>
+                        <span class="decoration">&rArr;</span>
+                    </a>
+                    <a href="#contact" class="btn-glitch-outline">
+                        <span class="text">// Contato</span>
+                        <span class="decoration">?</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hologram-container">
+                    <div class="hologram-circle"></div>
+                    <div class="data-stream">
+                        <div class="stream-line" style="--delay: 0s"></div>
+                        <div class="stream-line" style="--delay: 0.5s"></div>
+                        <div class="stream-line" style="--delay: 1s"></div>
+                        <div class="stream-line" style="--delay: 1.5s"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<script>
-		var canvas = document.getElementById("canvas");
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// PERFIL PROFISSIONAL">// PERFIL PROFISSIONAL</h2>
+            <div class="grid-2">
+                <div class="card cyber-card">
+                    <div class="card-header">
+                        <span class="card-icon">⟨/⟩</span>
+                        <h3>DESENVOLVEDOR BACKEND</h3>
+                    </div>
+                    <p>Sou desenvolvedor backend com afinidade em Go por ser uma linguagem completa e eficiente, embora desenvolver em python também não seja um desafio. Acredito que tudo depende do tipo de sistema, algumas linguagens podem ser mais eficientes do que outras para determinadas tarefas. O essencial necessário para todo desenvolvedor é saber escolher a linguagem correta para o projeto em específico, o resto é apenas determinação, pesquisa e aplicação prática até que os problemas sejam solucionados e o sistema criado.</p>
+                    <p>Com anos de prática, entendi que o mais importante não é saber a sintaxe da linguagem a ser usada, mas sim saber organizar toda a estrutura lógica dela e do projeto (variáveis, funções, métodos, objetos, classes, structs, documentação, arquivos, packages, comentários e etc.), fazendo com que tudo funcione de forma sofisticada e eficiente, sem bugs, sem vulnerabilidades e de fácil compreensão.</p>
+                </div>
+                <div class="card cyber-card">
+                    <div class="card-header">
+                        <span class="card-icon">◈</span>
+                        <h3>FRONTEND ENGINEER</h3>
+                    </div>
+                    <p>Se Arquimedes fosse programador diria: "De-me o JavaScript, e eu dinamizarei toda a web". Já eu digo: "Quanto mais você sabe JavaScript Vanilla, mais você tende a se tornar um Arquimedes da web". Sim, "vanilla". Acredito que a habilidade de um programador JS está no fato dele conseguir compreender e implementar o JS puro, sem frameworks. Quem domina ou é familiarizado com o JS vanilla, sabe usar todo e qualquer framework construido sobre ele com facilidade. </p>
+                    <p>É claro que tudo depende do projeto e do tempo necessário para colocá-lo em ambiente de produção, mas implementar JS puro, em um projeto web no frontend, quebra as correntes da limitação, dando liberdade para o programador encontrar um equilíbrio entre sofisticação e eficiência, sem depender de outros projetos ou sistemas externos.</p>
+                </div>
+            </div>
 
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+            <!-- Bio Section -->
+            <div class="bio-section">
+                <div class="cyber-card bio-card">
+                    <div class="card-header">
+                        <span class="card-icon">◉</span>
+                        <h3>SOBRE MIM</h3>
+                    </div>
+                    <!-- <p>Esse portfólio é mais por diversão do que por necessidade profissional. Quando concluí meu bacharelado em Ciencia da Computação em 2019 percebi que empresas, pelo menos algumas grandes multinacionais que atuam no Brasil, não se importam tanto assim com a criatividade e as habilidades técnicas de seus funcionários, mas se importam principalmente com o perfil social que o funcionário representa dentro e fora da empresa. As vezes que procurei emprego nelas não foram experiências muito agradáveis. Embora eu quisesse o emprego e sabia que poderia fazer e aprender o que era necessário, eu aparentemente não representava a agenda da empresa.. Não tenho um ponto claro a defender sobre isso, apenas frustração, o que não é construtivo nem informativo.. escrever outro parágrafo.</p> -->
+                    <p>Esse portfólio é mais por diversão do que por necessidade profissional. Quando concluí meu bacharelado em Ciencia da Computação em 2019, trabalhei como estagiário na prefeitura da minha cidade colaborando e construindo websites com wordpress. Aprendi algumas coisas é claro, a equipe era formada por pessoas extraordinárias e fiz ótimos amigos, mas na época eu estava tentando aprimorar ainda mais minhas habilidades de programação sem ter que depender de CMS como wordpress, que sentia que me limitava muito e ensinava pouco. Já na faculdade não tinha nada muito eficientemente prático. Então ao terminar o estágio e concluir a faculdade, dediquei meu tempo ao estudo profundo e intenso de programação de forma autodidata, coisa essa que definitivamente não foi fácil. Desenvolvi alguns projetos simples, coisas de quem ainda estava começando, mas nunca divulguei publicamente. Ao adquirir mais experiência depois de alguns anos, mudei o mindset do qual fui instruido que induzia: "que programadores deveriam ser funcionários de empresas de TI", para o mindset de que: "O Excelente programador cria a sua própria empresa". Mark Zuckerberg quando estava em Harvard não focava em trabalhar para o Google, focava em criar algo tão grandioso quanto. Programar não é só a habilidade de escrever códigos, programar é a habilidade de transformar todo e qualquer problema complexo em algo simples, funcional e eficiente, e todo problema a ser solucionado vira um produto que pode ser vendido.</p>
+                </div>
+            </div>
 
-		// Initialize the GL context
-		var gl = canvas.getContext('webgl');
-		if(!gl){
-		  console.error("Unable to initialize WebGL.");
-		}
+        </div>
+    </section>
 
-		//Time step
-		var dt = 0.015;
-		//Time
-		var time = 0.0;
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// HABILIDADES TÉCNICAS">// HABILIDADES TÉCNICAS</h2>
+            <div class="grid-2">
+                <div class="card cyber-card">
+                    <div class="card-header">
+                        <span class="card-icon">▲</span>
+                        <h3>BACKEND</h3>
+                    </div>
+                    <!-- <p>Desenvolvimento de APIs robustas e escaláveis utilizando Go e Node.js. Experiência com bancos de dados relacionais e não relacionais.</p> -->
+                    <div class="skills-list">
+                        <span class="skill-tag">Go</span>
+                        <span class="skill-tag">WebSockets</span>
+                        <span class="skill-tag">Concurrency (Goroutines, Channels, Sync e etc.)</span>
+                        <span class="skill-tag">Structs, Interfaces, Slices, Arrays, Mapas, Ponteiros e Estruturas de dados avançadas</span>
+                        <span class="skill-tag">API REST</span>
+                        <span class="skill-tag">Manipulação de rotas (net/http, http.ServeMux e etc.)</span>
+                        <span class="skill-tag">JSON</span>
+                        <span class="skill-tag">JWT authentication</span>
+                        <span class="skill-tag">Sanitarização (anti vulnerabilidade em injeção de códigos maliciosos)</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">RPA (PyAutoGui, Selenium)</span>
+                        <span class="skill-tag">Computer Vision (OpenCV, Pillow)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--width: 72%"></div>
+                        <span class="progress-text">72% PROFICIÊNCIA</span>
+                    </div>
+                </div>
+                <div class="card cyber-card">
+                    <div class="card-header">
+                        <span class="card-icon">◆</span>
+                        <h3>FRONTEND</h3>
+                    </div>
+                    <!-- <p>Criação de interfaces modernas e responsivas com HTML, CSS e JavaScript. Domínio de frameworks como React e Vue.js.</p> -->
+                    <div class="skills-list">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">Canvas API (Gráficos 3D, 2D e desenhos)</span>
+                        <span class="skill-tag">HTTP Requests</span>
+                        <span class="skill-tag">WebSockets client</span>
+                        <span class="skill-tag">DOM Manipulation (para criação de html dinâmico)</span>
+                        <span class="skill-tag">Event Handling</span>
+                        <span class="skill-tag">Programação assíncrona</span>
+                        <span class="skill-tag">Responsive Media Queries (mobile)</span>
+                        <span class="skill-tag">CSS Animations</span>
+                        <span class="skill-tag">Real-Time Chat</span>
+                        <span class="skill-tag">CSS-Doodle (Para geração de backgrounds e animações procedurais)</span>
+                        <span class="skill-tag">SVG (Tanto estático quanto em animação também)</span>
+                        <span class="skill-tag">BOM Manipulation (localstorage, cookies e etc.)</span>
+                        <span class="skill-tag">Além do básico como manipulação de tags, classes, styles em geral, UX/UI e mais coisas que provavelmente esqueci de listar.</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--width: 78%"></div>
+                        <span class="progress-text">78% PROFICIÊNCIA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		//************** Shader sources **************
+    <!-- Projects Section -->
+    <section id="projects" class="section tech-section">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// PROJETOS DESTACADOS">// PROJETOS DESTACADOS</h2>
+            <div class="tech-grid">
+                <!-- <div class="tech-item">
+                    <div class="tech-icon">⟡</div>
+                    <h4>Teste</h4>
+                    <div class="tech-value">Go + PostgreSQL</div>
+                </div> -->
+                <!-- <div class="tech-item">
+                    <div class="tech-icon">◉</div>
+                    <h4>E-commerce</h4>
+                    <div class="tech-value">React + Node.js</div>
+                </div> -->
+                <!-- <div class="tech-item">
+                    <div class="tech-icon">▣</div>
+                    <h4>Dashboard</h4>
+                    <div class="tech-value">Vue.js + D3</div>
+                </div> -->
+                <!-- <div class="tech-item">
+                    <div class="tech-icon">⬢</div>
+                    <h4>App Mobile</h4>
+                    <div class="tech-value">React Native</div>
+                </div> -->
+                <div class="tech-item">
+                    <div class="tech-icon">⟡</div>
+                    <h4>Teclado virtual Mobile Customizado</h4>
+                    <div class="tech-value">HTML + Javascript</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⟡</div>
+                    <h4>Web Paint</h4>
+                    <div class="tech-value">HTML + Javascript</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⟡</div>
+                    <h4>Wizard Color Mixer</h4>
+                    <div class="tech-value">HTML + Javascript</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⟡</div>
+                    <h4>Projeto Confidencial</h4>
+                    <div class="tech-value">Go + Javascript</div>
+                </div>
+            </div>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-title">PORTFOLIO.exe</span>
+                    <div class="terminal-buttons">
+                        <span class="btn-min">-</span>
+                        <span class="btn-max">□</span>
+                        <span class="btn-close">×</span>
+                    </div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">root@simeoneDev:~$</span>
+                        <span class="typing-text">atualizaçãoPortfolio(21/08/2025) --list-projects</span>
+                    </div>
+                    <div class="terminal-output">
+                        <p>[WARNING] Boa parte dos meus projetos são close-sourced, mas adaptarei partes de alguns para deixar open-source em breve: REMOVER ESSA NOTA QUANDO CONCLUIR</p>
+                        <p>[OK] Teclado virtual Mobile Customizado para websites: COMPLETO [AINDA NÃO ADAPTADO E NÃO MOSTRADO]</p>
+                        <p>[OK] Sistema de Web Paint para desenhos: COMPLETO [AINDA NÃO ADAPTADO E NÃO MOSTRADO]</p>
+                        <p>[OK] Sistema de Wizard Color Mixer (esse vai ser em outro website): EM DESENVOLVIMENTO</p>
+                        <p>[OK] Projetos secretos confidenciais: EM DESENVOLVIMENTO [ESSES NÃO VÃO SER MOSTRADOS, REMOVER ESSE TEXTO DEPOIS E COLOCAR (OU DESENVOLVER) OUTRA COISA]</p>
+                        <!-- <p>[INFO] Mais projetos disponíveis no GitHub</p> -->
+                        <p>[INFO] Os projetos ficarão disponíveis no GitHub em breve.</p>
+                        <p>[DOC] Portfólio base para desktop finalizado.</p>
+                        <p>[PENDENTE] Deixar Portfólio responsivo para mobile; Deixar CSS e JS em arquivos separados; Aprimorar mais, colocar outros temas de cores e adicionar traduções dinâmicas para inglês (ver se é possível apenas com JS, estou acostumado a fazer de forma sofisticada com {{.Translation.Get "ExampleText"}} em conjunto com Go); Implementar sistemas. // Exit</p>
+                        <p class="cursor-line">root@simeoneDev:~$ <span class="cursor">█</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		var vertexSource = `
-		attribute vec2 position;
-		void main() {
-			gl_Position = vec4(position, 0.0, 1.0);
-		}
-		`;
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="// CONTATO">// CONTATO</h2>
+            <div class="contact-section">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">// EMAIL</span>
+                        <span class="contact-value">SimeoneMarques@outlook.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// TELEFONE</span>
+                        <span class="contact-value">+55 (81) 99152-6975</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// LOCALIZAÇÃO</span>
+                        <span class="contact-value">Pernambuco, Brasil</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// REDES SOCIAIS</span>
+                        <div class="social-links">
+                            <a href="https://github.com/SimeoneMarques" class="social-link">GitHub</a>
+                            <a href="https://www.linkedin.com/in/simeone-marques/" class="social-link">LinkedIn</a>
+                            <!-- <a href="#" class="social-link">TW</a> -->
+                            <!-- <a href="#" class="social-link">IG</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">// DISPONIBILIDADE</span>
+                        <span class="contact-value">Freelancer / PJ / CLT(Dependendo da proposta)</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// HORÁRIO</span>
+                        <span class="contact-value">Segunda a Sexta</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// TEMPO DE RESPOSTA</span>
+                        <span class="contact-value">Provavelmente em menos de 12 horas</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">// IDIOMAS</span>
+                        <span class="contact-value">Português (Nativo), Inglês (Fluente)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		var fragmentSource = `
-		precision highp float;
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 SIMEONEMARQUES. NADA É RESERVADO AQUI, PODE COPIAR O QUE QUISER.</p>
+            <p class="footer-text">_ // Codificando o futuro, uma linha por vez</p>
+        </div>
+    </footer>
 
-		uniform float width;
-		uniform float height;
-		vec2 resolution = vec2(width, height);
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-		uniform float time;
+        // Counter animation
+        function animateCounter() {
+            const counter = document.querySelector('.counter');
+            if (counter) {
+                let current = 847392;
+                const increment = Math.floor(Math.random() * 100) + 1;
+                
+                setInterval(() => {
+                    current += increment;
+                    counter.textContent = current.toLocaleString();
+                }, 2000);
+            }
+        }
 
-		//Base values modified with depth later
-		float intensity = 1.0;
-		float radius = 0.05;
+        // Terminal typing effect
+        function initTerminalTyping() {
+            const terminalOutput = document.querySelector('.terminal-output');
+            const lines = [
+                '[OK] Sistema de gerenciamento de tarefas: COMPLETO',
+                '[OK] Plataforma de e-commerce: EM PRODUÇÃO', 
+                '[OK] Dashboard de análise de dados: COMPLETO',
+                '[OK] Aplicativo de finanças pessoais: EM DESENVOLVIMENTO',
+                '[INFO] Mais projetos disponíveis no GitHub'
+            ];
+            
+            let lineIndex = 0;
+            const outputLines = terminalOutput.querySelectorAll('p:not(.cursor-line)');
+            
+            function typeNextLine() {
+                if (lineIndex < outputLines.length) {
+                    outputLines[lineIndex].style.opacity = '1';
+                    outputLines[lineIndex].style.animation = 'typing 1s steps(40)';
+                    lineIndex++;
+                    setTimeout(typeNextLine, 1000);
+                }
+            }
+            
+            // Hide all lines initially
+            outputLines.forEach(line => line.style.opacity = '0');
+            
+            // Start typing animation
+            setTimeout(typeNextLine, 1000);
+        }
 
-		//Distance functions from 
-		//https://www.iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
-		float triangleDist(vec2 p){ 
-			const float k = sqrt(3.0);
-		  p.x = abs(p.x) - 1.0;
-		  p.y = p.y + 1.0/k;
-		  if( p.x+k*p.y>0.0 ) p=vec2(p.x-k*p.y,-k*p.x-p.y)/2.0;
-		  p.x -= clamp( p.x, -2.0, 0.0 );
-		  return -length(p)*sign(p.y);
-		}
+        // Glitch effect on hover
+        function addGlitchEffects() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            
+            glitchElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.animation = 'glitch-1 0.3s infinite';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.animation = 'none';
+                });
+            });
+        }
 
-		float boxDist(vec2 p){
-		  vec2 d = abs(p)-1.0;
-		  return length(max(d,vec2(0))) + min(max(d.x,d.y),0.0);
-		}
+        // Matrix rain effect
+        function createMatrixRain() {
+            const chars = '01GoJSCSSHTMLアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const matrixContainer = document.createElement('div');
+            matrixContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: -1;
+                opacity: 0.1;
+            `;
+            
+            for (let i = 0; i < 50; i++) {
+                const drop = document.createElement('div');
+                drop.textContent = chars[Math.floor(Math.random() * chars.length)];
+                drop.style.cssText = `
+                    position: absolute;
+                    color: var(--neon-green);
+                    font-family: 'VT323', monospace;
+                    font-size: ${Math.random() * 20 + 10}px;
+                    left: ${Math.random() * 100}%;
+                    animation: matrix-drop ${Math.random() * 10 + 5}s linear infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                matrixContainer.appendChild(drop);
+            }
+            
+            document.body.appendChild(matrixContainer);
+        }
 
-		float circleDist( vec2 p){
-		  return length(p) - 1.0;
-		}
+        // Add matrix drop animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes matrix-drop {
+                0% {
+                    top: -20px;
+                    opacity: 1;
+                }
+                100% {
+                    top: 100vh;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
-		//https://www.shadertoy.com/view/3s3GDn
-		float getGlow(float dist, float radius, float intensity){
-		  return pow(radius/dist, intensity);
-		}
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            animateCounter();
+            initTerminalTyping();
+            addGlitchEffects();
+            createMatrixRain();
+            
+            // Add loading screen effect
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 2s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 500);
+        });
 
-		void main(){
-		    
-			vec2 uv = gl_FragCoord.xy/resolution.xy;
-		  float widthHeightRatio = resolution.x/resolution.y;
-		  vec2 centre;
-		  vec2 pos;
-			
-		  float t = time * 0.05;
-		    
-		  float dist;
-		  float glow;
-		  vec3 col = vec3(0);
-		    
-		  //The spacing between shapes
-		  float scale = 500.0;
-		  //Number of shapes
-		  const float layers = 15.0;
-		    
-		  float depth;
-		  vec2 bend;
-		    
-		  vec3 purple = vec3(0.611, 0.129, 0.909);
-		  vec3 green = vec3(0.133, 0.62, 0.698);
-		    
-		  float angle;
-		  float rotationAngle;
-		  mat2 rotation;
-		    
-		  //For movement of the anchor point in time
-		  float d = 2.5*(sin(t) + sin(3.0*t));
+        // Cyber button click effects
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[class*="btn-glitch-"]')) {
+                // Create glitch particles
+                for (let i = 0; i < 10; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: var(--neon-cyan);
+                        pointer-events: none;
+                        z-index: 1000;
+                        left: ${e.clientX}px;
+                        top: ${e.clientY}px;
+                        animation: particle-explosion 1s ease-out forwards;
+                    `;
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            }
+        });
 
-		  //Create an out of frame anchor point where all shapes converge to    
-		  vec2 anchor = vec2(0.5 + cos(d), 0.5 + sin(d));
-		    
-		  //Create light purple glow at the anchor loaction
-		  pos = anchor - uv;
-		  pos.y /= widthHeightRatio;
-		  dist = length(pos);
-		  glow = getGlow(dist, 0.2, 1.9);
-		  col += glow * vec3(0.7,0.6,1.0);
-		    
-			for(float i = 0.0; i < layers; i++){
-		        
-		  	//Time varying depth information depending on layer
-		    depth = fract(i/layers + t);
-
-		    //Move the focus of the camera in a circle
-		    centre = vec2(0.5 + 0.2 * sin(t), 0.5 + 0.2 * cos(t));
-		        
-		   	//Position shapes between the anchor and the camera focus based on depth
-		   	bend = mix(anchor, centre, depth);
-		     	
-		    pos = bend - uv;
-		   	pos.y /= widthHeightRatio;
-
-		    //Rotate shapes
-		    rotationAngle = 3.14 * sin(depth + fract(t) * 6.28) + i;
-		    rotation = mat2(cos(rotationAngle), -sin(rotationAngle), 
-		                    sin(rotationAngle),  cos(rotationAngle));
-		        
-		    pos *= rotation;
-		        
-		    //Position shapes according to depth
-		    pos *= mix(scale, 0.0, depth);
-		    	
-		    float m = mod(i, 3.0);
-		    if(m == 0.0){
-		    	dist = abs(boxDist(pos));
-		    }else if(m == 1.0){
-		      dist = abs(triangleDist(pos));
-		    }else{
-		    	dist = abs(circleDist(pos));
-		    }
-		       
-		    //Get glow from base radius and intensity modified by depth
-		    glow = getGlow(dist, radius+(1.0-depth)*2.0, intensity + depth);
-		        
-		    //Find angle along shape and map from [-PI; PI] to [0; 1]
-		    angle = (atan(pos.y, pos.x)+3.14)/6.28;
-		    //Shift angle depending on layer and map to [1...0...1]
-				angle = abs((2.0*fract(angle + i/layers)) - 1.0);
-		        
-		    //White core
-		   	//col += 10.0*vec3(smoothstep(0.03, 0.02, dist));
-		        
-		    //Glow according to angle value
-		    col += glow * mix(green, purple, angle);
-			}
-		    
-		  //Tone mapping
-		  col = 1.0 - exp(-col);
-		    
-		  //Output to screen
-		  gl_FragColor = vec4(col,1.0);
-		}
-		`;
-
-		//************** Utility functions **************
-
-		window.addEventListener('resize', onWindowResize, false);
-
-		function onWindowResize(){
-		  canvas.width  = window.innerWidth;
-		  canvas.height = window.innerHeight;
-			gl.viewport(0, 0, canvas.width, canvas.height);
-		  gl.uniform1f(widthHandle, window.innerWidth);
-		  gl.uniform1f(heightHandle, window.innerHeight);
-		}
-
-
-		//Compile shader and combine with source
-		function compileShader(shaderSource, shaderType){
-		  var shader = gl.createShader(shaderType);
-		  gl.shaderSource(shader, shaderSource);
-		  gl.compileShader(shader);
-		  if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
-		  	throw "Shader compile failed with: " + gl.getShaderInfoLog(shader);
-		  }
-		  return shader;
-		}
-
-		//From https://codepen.io/jlfwong/pen/GqmroZ
-		//Utility to complain loudly if we fail to find the attribute/uniform
-		function getAttribLocation(program, name) {
-		  var attributeLocation = gl.getAttribLocation(program, name);
-		  if (attributeLocation === -1) {
-		  	throw 'Cannot find attribute ' + name + '.';
-		  }
-		  return attributeLocation;
-		}
-
-		function getUniformLocation(program, name) {
-		  var attributeLocation = gl.getUniformLocation(program, name);
-		  if (attributeLocation === -1) {
-		  	throw 'Cannot find uniform ' + name + '.';
-		  }
-		  return attributeLocation;
-		}
-
-		//************** Create shaders **************
-
-		//Create vertex and fragment shaders
-		var vertexShader = compileShader(vertexSource, gl.VERTEX_SHADER);
-		var fragmentShader = compileShader(fragmentSource, gl.FRAGMENT_SHADER);
-
-		//Create shader programs
-		var program = gl.createProgram();
-		gl.attachShader(program, vertexShader);
-		gl.attachShader(program, fragmentShader);
-		gl.linkProgram(program);
-
-		gl.useProgram(program);
-
-		//Set up rectangle covering entire canvas 
-		var vertexData = new Float32Array([
-		  -1.0,  1.0, 	// top left
-		  -1.0, -1.0, 	// bottom left
-		   1.0,  1.0, 	// top right
-		   1.0, -1.0, 	// bottom right
-		]);
-
-		//Create vertex buffer
-		var vertexDataBuffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
-
-		// Layout of our data in the vertex buffer
-		var positionHandle = getAttribLocation(program, 'position');
-
-		gl.enableVertexAttribArray(positionHandle);
-		gl.vertexAttribPointer(positionHandle,
-		  2, 				// position is a vec2 (2 values per component)
-		  gl.FLOAT, // each component is a float
-		  false, 		// don't normalize values
-		  2 * 4, 		// two 4 byte float components per vertex (32 bit float is 4 bytes)
-		  0 				// how many bytes inside the buffer to start from
-		  );
-
-		//Set uniform handle
-		var timeHandle = getUniformLocation(program, 'time');
-		var widthHandle = getUniformLocation(program, 'width');
-		var heightHandle = getUniformLocation(program, 'height');
-
-		gl.uniform1f(widthHandle, window.innerWidth);
-		gl.uniform1f(heightHandle, window.innerHeight);
-
-		function draw(){
-		  //Update time
-		  time += dt;
-
-			//Send uniforms to program
-		  gl.uniform1f(timeHandle, time);
-		  //Draw a triangle strip connecting vertices 0-4
-		  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-		  requestAnimationFrame(draw);
-		}
-
-		draw();
-	</script>
+        // Add particle explosion animation
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particle-explosion {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+    </script>
 </body>
 </html>
